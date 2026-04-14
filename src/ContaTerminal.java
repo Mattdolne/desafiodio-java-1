@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.Locale;
 
-public class contaTerminal {
+public class ContaTerminal {
 
     public static void main(String[] args) throws Exception {
         
@@ -20,11 +20,23 @@ public class contaTerminal {
         System.out.println("Ótimo! \nPara concluir o seu cadastro, digite o saldo de depósito inicial:");
         double saldo = scan.nextDouble();
         
-        scan.close();
-
+        
         System.out.println(contaCriada(nomeCliente, agencia, numero, saldo));
-    }    //Exibir as mensagens para o usuário
-       
+        
+        System.out.println("Gostaria de acessar o Caixa Eletrônico agora?" +
+            "\nDigite s ou n");
+            scan.nextLine();
+        String acessarCaixa = scan.nextLine();
+            if (acessarCaixa.equalsIgnoreCase("s")) {
+                CaixaEletronico caixa = new CaixaEletronico();
+                caixa.iniciar(saldo);
+            } else {
+                System.out.println("Encerrando o terminal...");
+                System.exit(0);
+            } 
+        scan.close();
+        }   
+            
         //Exibir mensagem conta criada
         public static String contaCriada(String nomeCliente, String agencia, int numero, double saldo) {
         return "Olá " + nomeCliente + "!" + 
@@ -32,8 +44,9 @@ public class contaTerminal {
         "\nSegue os dados da sua nova conta: " +
         "\nAgência: " + agencia +
         "\nNúmero da Conta: " + numero +
-        "\nSaldo atual: " + saldo;
-        }
+        "\nSaldo atual: " + saldo;    
+        
+    }
         
 }
 

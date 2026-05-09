@@ -1,5 +1,9 @@
+package services;
+
 import java.util.Scanner;
 import java.util.Locale;
+
+import model.DadosConta;
 
 public class ContaTerminal {
 
@@ -8,20 +12,25 @@ public class ContaTerminal {
         System.out.println("Saudações! Este é o JavaBank. \n Por favor, digite o número da sua conta:");
         Scanner scan = new Scanner(System.in);
         scan.useLocale(Locale.US);
-        int numero = scan.nextInt();
+        int setNumero = scan.nextInt();
         scan.nextLine();
         
         System.out.println("Excelente! \nAgora, digite o número da sua agência:");
-        String agencia = scan.nextLine();
+        String setAgencia = scan.nextLine();
 
-        System.out.println("Correto! \nPreciso que me insira o seu nome:");
-        String nomeCliente = scan.nextLine();
+        System.out.println("Correto! \nPreciso que insira o seu nome:");
+        String setNomeCliente = scan.nextLine();
 
         System.out.println("Ótimo! \nPara concluir o seu cadastro, digite o saldo de depósito inicial:");
-        double saldo = scan.nextDouble();
+        double setSaldo = scan.nextDouble();
         
+        DadosConta conta = new DadosConta();
+        conta.setNumero(setNumero);
+        conta.setAgencia(setAgencia);
+        conta.setNomeCliente(setNomeCliente);
+        conta.setSaldo(setSaldo);
         
-        System.out.println(contaCriada(nomeCliente, agencia, numero, saldo));
+        System.out.println(conta.contaCriada());
         
         System.out.println("Gostaria de acessar o Caixa Eletrônico agora?" +
             "\nDigite s ou n");
@@ -29,24 +38,12 @@ public class ContaTerminal {
         String acessarCaixa = scan.nextLine();
             if (acessarCaixa.equalsIgnoreCase("s")) {
                 CaixaEletronico caixa = new CaixaEletronico();
-                caixa.iniciar(saldo);
+                caixa.iniciar(conta.getSaldo());
             } else {
                 System.out.println("Encerrando o terminal...");
                 System.exit(0);
             } 
         scan.close();
-        }   
-            
-        //Exibir mensagem conta criada
-        public static String contaCriada(String nomeCliente, String agencia, int numero, double saldo) {
-        return "Olá " + nomeCliente + "!" + 
-        "\nEstamos contentes por ter se juntado a nós." +
-        "\nSegue os dados da sua nova conta: " +
-        "\nAgência: " + agencia +
-        "\nNúmero da Conta: " + numero +
-        "\nSaldo atual: " + saldo;    
-        
-    }
-        
+    }  
+   
 }
-
